@@ -14,7 +14,7 @@ public class BankController
     {
         Bank bank = new Bank();
         Scanner sc = new Scanner(System.in);
-        // Информационное сообщение, предполагающее небольшое меню для вывода информации о возможностях
+        // Information message to output little menu of programm
         String infoString = "To add client press 1.\n" +
                         "To print all clients press 2.\n" +
                         "To find client by id press 3.\n" +
@@ -23,13 +23,13 @@ public class BankController
                         "To transaction between cliens press 6.\n" +
                         "To exit press 7.";
         System.out.println(infoString);
-        boolean bool = true; // цикл, в котором пока пользователь не введет 7, будет приниматься действие
+        boolean bool = true; // while bool - true, programm is working
         while (bool) {
-            int adminsEnter = sc.nextInt(); // То, что нажал оператор программы
+            int adminsEnter = sc.nextInt(); // user choise
             if (adminsEnter == 1) {
                 bank.addUser("myPassword");
                 System.out.println("");
-                System.out.println(infoString); // После каждого исопльзования программы, меню выводится заново
+                System.out.println(infoString);
             }
             else if (adminsEnter == 2) {
                 bank.printUsers();
