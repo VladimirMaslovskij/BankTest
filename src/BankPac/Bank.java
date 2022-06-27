@@ -12,16 +12,16 @@ public class Bank
 
     Scanner sc = new Scanner(System.in);
 
-    public void addUser(String password)  // Добавление пользователя в users
+    public void addUser(String password)  // Adding one user
     {
 
         if(password.equals(bankPassword) && userCounter < MAX_USERS)
         {
             User user = new User();
-            user.setUserInfo();  // Установка информации о пользователе
+            user.setUserInfo();  // Set information about user
             users[userCounter] = user;
             userCounter++;
-            user.setUserCard();  // Добавление карты юзеру, по анологии с setUserInfo
+            user.setUserCard();  // adding card to user
             System.out.println("Client was be registrated");
         }
         else
@@ -30,15 +30,15 @@ public class Bank
         }
     }
 
-    public void printUsers() {  // Вывод всех юзеров на экран
+    public void printUsers() {  // output all users info
         for (int i = 0; i < userCounter; i++) {
             User user = users[i];
-            user.getUserInfo();  // Метод класса User
+            user.getUserInfo();
             System.out.println("");
         }
     }
 
-    // Поиск юзера по id, использовать после printUsers, чтобы узнать id и ввести его в поиск
+    // Find users by id, recommended use after "printUsers()" to know the id
     public User findUserFromId(long id) {
         User result = null;
         for (int i = 0; i < userCounter; i++) {
@@ -53,11 +53,10 @@ public class Bank
         return result;
     }
 
-    // Поиск юзера по фамилии (ArrayList удобнее, чтобы создать массив, не зная его длины, и добавлять
-    // в случае совпадения фамилии
+    // Find users by surnames
     public ArrayList<User> findUserFromSurname(String surname) {
         ArrayList<User> users1 = new ArrayList<>();
-        for (int i = 0; i < userCounter; i++) {  // Заполняем массив users1
+        for (int i = 0; i < userCounter; i++) {  // Fill the users1
             User user = users[i];
             if (surname.equals(user.getUserSurname())) {
                 users1.add(users[i]);
@@ -66,37 +65,36 @@ public class Bank
         if (users1.isEmpty()) {
             System.out.println("User's witch surname " + surname + " not found");
         } else {
-            for (User user : users1) {  // Используя getUserInfo, выводим информацию обо всех юзерах в users1
+            for (User user : users1) {  // output users info, who surname is fit
                 user.getUserInfo();
             }
         }
         return users1;
     }
 
-    public void transactionToCard(long userId, float summ) {      // обычное пополнение карты одному пользователю по его id
+    public void transactionToCard(long userId, float summ) {      // adding money to user by id
         for (int i = 0; i < userCounter; i++) {
             User user = users[i];
             if(userId == user.getId()) {
-                user.addMoney(summ);  // метод из класса User
+                user.addMoney(summ);
             }
         }
     }
 
-    // Перевод между юзерами, с вводом их id и суммы перевода. Перед использованием желательно вызвать printUsers
-    // чтобы узнать их id
+    // transfer money between users with the indication id firstUser, id SecondUser, and sum of transfer
     public void transactionUserToUser(long firstUserId, long secondUserId, float summ) {
-        boolean b = false; // Флажок, будет проверять, списались ли деньги у первого пользователя
+        boolean b = false; // checks that the money has been debited
         for (int i = 0; i < userCounter; i++) {
             User user = users[i];
             if(firstUserId == user.getId()) {
-                b = user.deliteMoney(summ);  // Списание суммы с карты первого пользователя
+                b = user.deliteMoney(summ);  // debit sum money from firstUser card
             }
         }
-        if (b) { // Если деньги у первого смогли списаться, то добавляем их второму
+        if (b) { // adding money to secondUser card if the money has been debited from firstUser card
             for (int i = 0; i < userCounter; i++) {
                 User user = users[i];
                 if (secondUserId == user.getId()) {
-                    user.addMoney(summ);  // Добавление суммы на карту второго юзера
+                    user.addMoney(summ);
                 }
             }
         }
