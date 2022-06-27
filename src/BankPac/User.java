@@ -7,7 +7,7 @@ public class User
     private long id = (long)(Math.random() * 999999999);
     User(){}
 
-    // Вывод информации о пользователе посредством вызова getInfo класса Info
+    // output user info
     public void getUserInfo() {
         System.out.println("Information about client " + id + ":");
         info.getInfo();
@@ -16,18 +16,18 @@ public class User
     public Card getCard() {
         return card;
     }
-    // Добавить юзеру немножко денюжки
+    // adding money to user card
     void addMoney(float summ) {
         card.addMoney(summ);
     }
-    // Забрать у него бабки
+    // debiting money of user
     boolean deliteMoney(float summ) {
         return card.deliteMoney(summ);
     }
     public long getId() {
         return id;
     }
-    // Установка информации о юзере
+    // set info about user
     void setUserInfo()
     {
         info = new Info();

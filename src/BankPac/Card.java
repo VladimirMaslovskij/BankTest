@@ -5,16 +5,16 @@ public class Card
     private long cardNumber = (long)(Math.random() * 999999999);
     private short cvv = (short)(100+(Math.random() * 900));
     private long userId;
-    private float money = (float) (100.0); // Допустим, в стоимость карты включена какая-то начальная сумма
+    private float money = (float) (100.0); // initial balance
     Card(){}
 
-    // Создание карты, используется при создании юзера
+    // Creating the card
     void setCard(long userId)
     {
         Card card = new Card();
         this.userId = userId;
     }
-    // Добавляет юзеру денег, допустим максимальная сумма, которую позволяет хранить карта - Float.MAX_VALUE
+    // Add money, but not more than the limit
     void addMoney(float summ) {
         if (this.money + summ <= Float.MAX_VALUE) {
             this.money += summ;
@@ -22,8 +22,8 @@ public class Card
             System.out.println("Card's limit will be received. Transaction is not possible.");
         }
     }
-    // Списывает деньги с карты юзера. Не допускает списать больше, чем у него есть
-    boolean deliteMoney(float summ) { // boolean, чтобы вернуть значение в флажек b в метод transactionUserToUser
+    // Debits money from the user's card. Does not allow to write off more than he has
+    boolean deliteMoney(float summ) { // return true or false to know result of operation
         if (this.money - summ < 0) {
             System.out.println("Insufficient funds.");
             return false;

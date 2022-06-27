@@ -9,7 +9,7 @@ public class Info
     Address address;
 
     Info(){}
-    // Заполнение данных о юзере
+    // fill user info
     void setInfo()
     {
         Scanner sc =new Scanner(System.in);
@@ -20,7 +20,7 @@ public class Info
         address = new Address();
         address.setAddress(sc);
     }
-    // Вывод данных о юзере на экран
+    // output user info
     void getInfo()
     {
         System.out.print("Name: " + name);

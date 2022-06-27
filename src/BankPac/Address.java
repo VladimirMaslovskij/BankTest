@@ -12,7 +12,7 @@ public class Address {
     Address() {
 
     }
-    // Для заполнения данных об адресе юзера
+    // Info about user address
     void setAddress(Scanner sc) {
         System.out.print("Enter city: ");
         this.city = sc.nextLine();
@@ -23,7 +23,7 @@ public class Address {
         System.out.print("Enter flat: ");
         this.flat = sc.nextInt();
     }
-    // Для вывода данных об адресе юзера на экран
+    // output info
     void getAddress()
     {
         System.out.print("City: " + city);
