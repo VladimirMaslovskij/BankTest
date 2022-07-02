@@ -11,6 +11,7 @@ public class User
     public void getUserInfo() {
         System.out.println("Information about client " + id + ":");
         info.getInfo();
+        card.getCardInfo();
     }
 
     public Card getCard() {
@@ -38,10 +39,10 @@ public class User
     {
         return info.getSurname();
     }
-    void setUserCard()
+    void setUserCard(ClassCard type)
     {
         card = new Card();
-        card.setCard(id);
+        card.setCard(id, type);
     }
 
 }

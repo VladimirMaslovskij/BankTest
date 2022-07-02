@@ -5,23 +5,34 @@ import java.util.Scanner;
 
 public class Bank
 {
-    final short MAX_USERS = 3;
+    private static Bank instatce;
+
+    private  Bank() {}
+
+    public static Bank getInstance()
+    {
+        if (instatce == null) {
+            instatce = new Bank();
+        }
+            return instatce;
+    }
+
+
     final String bankPassword = "myPassword";
-    User[] users = new User[MAX_USERS]; // DATA BASE(NO)
-    short userCounter = 0;
+    ArrayList<User> users = new ArrayList<>(); // DATA BASE(NO)
+
 
     Scanner sc = new Scanner(System.in);
 
-    public void addUser(String password)  // Adding one user
+    public void addUser(String password, ClassCard type)  // Adding one user
     {
 
-        if(password.equals(bankPassword) && userCounter < MAX_USERS)
+        if(password.equals(bankPassword))
         {
             User user = new User();
             user.setUserInfo();  // Set information about user
-            users[userCounter] = user;
-            userCounter++;
-            user.setUserCard();  // adding card to user
+            users.add(user);
+            user.setUserCard(type);  // adding card to user
             System.out.println("Client was be registrated");
         }
         else
@@ -31,8 +42,7 @@ public class Bank
     }
 
     public void printUsers() {  // output all users info
-        for (int i = 0; i < userCounter; i++) {
-            User user = users[i];
+        for (User user : users) {
             user.getUserInfo();
             System.out.println("");
         }
@@ -41,8 +51,7 @@ public class Bank
     // Find users by id, recommended use after "printUsers()" to know the id
     public User findUserFromId(long id) {
         User result = null;
-        for (int i = 0; i < userCounter; i++) {
-            User user = users[i];
+        for (User user : users) {
             if(id == user.getId()) {
                 user.getUserInfo();
                 result = user;
@@ -56,10 +65,9 @@ public class Bank
     // Find users by surnames
     public ArrayList<User> findUserFromSurname(String surname) {
         ArrayList<User> users1 = new ArrayList<>();
-        for (int i = 0; i < userCounter; i++) {  // Fill the users1
-            User user = users[i];
+        for (User user : users) {  // Fill the users1
             if (surname.equals(user.getUserSurname())) {
-                users1.add(users[i]);
+                users1.add(user);
             }
         }
         if (users1.isEmpty()) {
@@ -73,8 +81,7 @@ public class Bank
     }
 
     public void transactionToCard(long userId, float summ) {      // adding money to user by id
-        for (int i = 0; i < userCounter; i++) {
-            User user = users[i];
+        for (User user : users) {
             if(userId == user.getId()) {
                 user.addMoney(summ);
             }
@@ -84,15 +91,13 @@ public class Bank
     // transfer money between users with the indication id firstUser, id SecondUser, and sum of transfer
     public void transactionUserToUser(long firstUserId, long secondUserId, float summ) {
         boolean b = false; // checks that the money has been debited
-        for (int i = 0; i < userCounter; i++) {
-            User user = users[i];
+        for (User user : users) {
             if(firstUserId == user.getId()) {
                 b = user.deliteMoney(summ);  // debit sum money from firstUser card
             }
         }
         if (b) { // adding money to secondUser card if the money has been debited from firstUser card
-            for (int i = 0; i < userCounter; i++) {
-                User user = users[i];
+            for (User user : users) {
                 if (secondUserId == user.getId()) {
                     user.addMoney(summ);
                 }

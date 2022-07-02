@@ -6,13 +6,23 @@ public class Card
     private short cvv = (short)(100+(Math.random() * 900));
     private long userId;
     private float money = (float) (100.0); // initial balance
+
+    private ClassCard cardType;
     Card(){}
 
     // Creating the card
-    void setCard(long userId)
+    void setCard(long userId, ClassCard type)
     {
         Card card = new Card();
         this.userId = userId;
+        this.cardType = type;
+    }
+
+    void getCardInfo()
+    {
+        System.out.println("Info about user card:");
+        System.out.println("number of card - " + this.cardNumber + " , type of card - " + this.cardType
+                        + " , card balance - " + this.money);
     }
     // Add money, but not more than the limit
     void addMoney(float summ) {
