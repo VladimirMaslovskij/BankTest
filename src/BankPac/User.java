@@ -1,6 +1,8 @@
 package BankPac;
 
-public class User
+import java.io.Serializable;
+
+public class User implements Serializable
 {
     private Info info;
     private Card card;

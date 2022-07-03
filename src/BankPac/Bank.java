@@ -1,5 +1,6 @@
 package BankPac;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -103,5 +104,13 @@ public class Bank
                 }
             }
         }
+    }
+
+    public void saveList() throws IOException {
+        SaveBankUsers.saveUsersList(users);
+    }
+
+    public void openSave(ArrayList<User> arrayList) {
+        users = arrayList;
     }
 }

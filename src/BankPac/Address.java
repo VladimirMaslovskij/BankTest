@@ -1,8 +1,10 @@
 package BankPac;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Address {
+public class Address implements Serializable
+{
 
     private String city;
     private String street;

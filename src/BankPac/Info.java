@@ -1,8 +1,9 @@
 package BankPac;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class Info
+public class Info implements Serializable
 {
     String name;
     String surname;

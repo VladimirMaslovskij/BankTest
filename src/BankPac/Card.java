@@ -1,6 +1,8 @@
 package BankPac;
 
-public class Card
+import java.io.Serializable;
+
+public class Card implements Serializable
 {
     private long cardNumber = (long)(Math.random() * 999999999);
     private short cvv = (short)(100+(Math.random() * 900));
