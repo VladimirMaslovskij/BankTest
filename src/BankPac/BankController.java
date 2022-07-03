@@ -21,7 +21,7 @@ public class BankController
         Scanner sc = new Scanner(System.in);
         Menu menu = new Menu();
         System.out.println("To open database press 1.\n" +
-                            "To create a new database press any key.");
+                            "To create a new database press 2.");
         int choiseDB = sc.nextInt();
         // Open Serializable object from file
         if (choiseDB == 1)
@@ -68,7 +68,33 @@ public class BankController
                     menu.setUserName(loginName);
                     menu.userMenu();
                 }
-                else System.out.println("Login or password the incorrect");
+                else
+                {
+                    System.out.println("Login or password the incorrect. \n" +
+                            "Do you wanna create the new account? (Yes/No)");
+                    Scanner scanner1 = new Scanner(System.in);
+                    String choiseOfRegistr = scanner1.nextLine();
+                    if (choiseOfRegistr.equalsIgnoreCase("yes"))
+                    {
+                        System.out.println("Enter the type of user card: 1.Bronze, 2.Silver, 3.Gold");
+                        int choiseCardType = 0;
+                        ClassCard type = null;
+                        boolean cardClassSwitch = false;
+                        while (type == null) {
+                            choiseCardType = scanner1.nextInt();
+                            if (choiseCardType == 1)
+                                type = ClassCard.BRONZE;
+                            else if (choiseCardType == 2)
+                                type = ClassCard.SILVER;
+                            else if (choiseCardType == 3)
+                                type = ClassCard.GOLD;
+                            else
+                                System.out.println("Enter 1, 2, or 3, no more");
+                        }
+                        bank.addUser(type);
+                        bank.saveList();
+                    }
+                }
             }
         } else
         {

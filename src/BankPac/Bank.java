@@ -28,7 +28,7 @@ public class Bank
 
     Scanner sc = new Scanner(System.in);
 
-    public void addUser(String password, ClassCard type)  // Adding one user
+    public void addUser(ClassCard type)  // Adding one user
     {
             User user = new User();
             user.setUserInfo();  // Set information about user

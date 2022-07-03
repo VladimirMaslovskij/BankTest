@@ -40,7 +40,7 @@ public class Menu {
                         else
                             System.out.println("Enter 1,2, or 3, no more");
                     }
-                    bank.addUser("myPassword", type);
+                    bank.addUser(type);
                     System.out.println("");
                     System.out.println(infoString);
                 } else if (adminsEnter == 2) {
@@ -125,12 +125,15 @@ public class Menu {
                     System.out.println(infoString);
                 } else if (usersEnter == 3) {
                     bool = false;
+                    bank.saveList();
                     break;
                 }
             }
         }
         catch (InputMismatchException ex) {
             System.out.println("You entered not the digit");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
