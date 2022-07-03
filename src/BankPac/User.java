@@ -46,5 +46,17 @@ public class User implements Serializable
         card = new Card();
         card.setCard(id, type);
     }
+    public String getName() {
+        return info.getName();
+    }
+
+    public String getPassword() {
+        return info.getPassword();
+    }
+
+    public long getUserCardNumber()
+    {
+        return card.getCardNumber();
+    }
 
 }

@@ -44,4 +44,9 @@ public class Card implements Serializable
             return true;
         }
     }
+
+    public long getCardNumber()
+    {
+        return cardNumber;
+    }
 }

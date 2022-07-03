@@ -9,15 +9,19 @@ public class Info implements Serializable
     String surname;
     Address address;
 
+    String password;
+
     Info(){}
     // fill user info
     void setInfo()
     {
-        Scanner sc =new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         System.out.print("Enter name: ");
         this.name = sc.nextLine();
         System.out.print("Enter surname: ");
         this.surname = sc.nextLine();
+        System.out.println("Enter you're password");
+        this.password = sc.nextLine();
         address = new Address();
         address.setAddress(sc);
     }
@@ -25,9 +29,19 @@ public class Info implements Serializable
     void getInfo()
     {
         System.out.print("Name: " + name);
-        System.out.println(", surname: " + surname + ".");
+        System.out.print(", surname: " + surname);
+        System.out.println(", password: " + password + ".");
         address.getAddress();
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     String getSurname()
     {
         return surname;

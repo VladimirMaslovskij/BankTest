@@ -2,21 +2,24 @@ package BankPac;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Bank
 {
-    private static Bank instatce;
+    private static Bank instance;
 
     private  Bank() {}
 
     public static Bank getInstance()
     {
-        if (instatce == null) {
-            instatce = new Bank();
+        if (instance == null) {
+            instance = new Bank();
         }
-            return instatce;
+            return instance;
     }
+
+    HashMap<String, String> logMap = new HashMap<>();
 
 
     final String bankPassword = "myPassword";
@@ -33,6 +36,7 @@ public class Bank
             User user = new User();
             user.setUserInfo();  // Set information about user
             users.add(user);
+            logMap.put(user.getName() + user.getUserSurname(), user.getPassword());
             user.setUserCard(type);  // adding card to user
             System.out.println("Client was be registrated");
         }
@@ -81,25 +85,37 @@ public class Bank
         return users1;
     }
 
-    public void transactionToCard(long userId, float summ) {      // adding money to user by id
+    public void findUserFromNameSurname(String name, String surname)
+    {
+        for (User user : users)
+        {
+            if (name.equals(user.getName()) && surname.equals(user.getUserSurname()))
+            {
+                user.getUserInfo();
+
+            }
+        }
+    }
+
+    public void transactionToCard(long userCardNumber, float summ) {      // adding money to user by id
         for (User user : users) {
-            if(userId == user.getId()) {
+            if(userCardNumber == user.getUserCardNumber()) {
                 user.addMoney(summ);
             }
         }
     }
 
     // transfer money between users with the indication id firstUser, id SecondUser, and sum of transfer
-    public void transactionUserToUser(long firstUserId, long secondUserId, float summ) {
+    public void transactionUserToUser(long firstUserCardNumber, long secondUserCardNumber, float summ) {
         boolean b = false; // checks that the money has been debited
         for (User user : users) {
-            if(firstUserId == user.getId()) {
+            if(firstUserCardNumber == user.getUserCardNumber()) {
                 b = user.deliteMoney(summ);  // debit sum money from firstUser card
             }
         }
         if (b) { // adding money to secondUser card if the money has been debited from firstUser card
             for (User user : users) {
-                if (secondUserId == user.getId()) {
+                if (secondUserCardNumber == user.getUserCardNumber()) {
                     user.addMoney(summ);
                 }
             }
@@ -107,10 +123,11 @@ public class Bank
     }
 
     public void saveList() throws IOException {
-        SaveBankUsers.saveUsersList(users);
+        SaveBankUsers.saveUsersList(users, logMap);
     }
 
-    public void openSave(ArrayList<User> arrayList) {
+    public void openSave(ArrayList<User> arrayList, HashMap<String, String> hashMap) {
         users = arrayList;
+        logMap = hashMap;
     }
 }
