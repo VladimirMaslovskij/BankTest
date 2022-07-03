@@ -1,8 +1,6 @@
-package BankPac;
+package Controller;
 
-import BankPac.Address;
-import BankPac.Bank;
-import BankPac.Card;
+import BankPac.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
