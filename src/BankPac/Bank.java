@@ -3,6 +3,7 @@ package BankPac;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Bank
@@ -22,7 +23,6 @@ public class Bank
     HashMap<String, String> logMap = new HashMap<>();
 
 
-    final String bankPassword = "myPassword";
     ArrayList<User> users = new ArrayList<>(); // DATA BASE(NO)
 
 
@@ -30,20 +30,12 @@ public class Bank
 
     public void addUser(String password, ClassCard type)  // Adding one user
     {
-
-        if(password.equals(bankPassword))
-        {
             User user = new User();
             user.setUserInfo();  // Set information about user
             users.add(user);
             logMap.put(user.getName() + user.getUserSurname(), user.getPassword());
             user.setUserCard(type);  // adding card to user
-            System.out.println("Client was be registrated");
-        }
-        else
-        {
-            System.out.println("Wrong password");
-        }
+            System.out.println("Client was registered");
     }
 
     public void printUsers() {  // output all users info
@@ -120,6 +112,30 @@ public class Bank
                 }
             }
         }
+    }
+
+    public void createAdmin()
+    {
+        System.out.println("Enter the admin's name");
+        String adminName = sc.nextLine();
+        System.out.println("Enter the admin's password");
+        String adminPassword = sc.nextLine();
+        logMap.put(adminName, adminPassword);
+    }
+
+
+    public boolean checkLogin(String login, String pass)
+    {
+        boolean result = false;
+        for (Map.Entry<String, String> pair : logMap.entrySet())
+        {
+            if (login.equals(pair.getKey()))
+            {
+                if (pass.equals(pair.getValue()))
+                    result = true;
+            }
+        }
+        return result;
     }
 
     public void saveList() throws IOException {

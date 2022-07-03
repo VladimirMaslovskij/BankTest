@@ -19,7 +19,6 @@ public class BankController
     public static void main(String[] args) throws InputMismatchException, IOException, ClassNotFoundException {
         Bank bank = Bank.getInstance();
         Scanner sc = new Scanner(System.in);
-        Authorization authorization = new Authorization();
         Menu menu = new Menu();
         System.out.println("To open database press 1.\n" +
                             "To create a new database press any key.");
@@ -36,7 +35,6 @@ public class BankController
             ArrayList<User> result = (ArrayList<User>) one;
             HashMap<String, String> resultMap = (HashMap<String, String>) two;
             os.close();
-            authorization.setMap(resultMap);
             bank.openSave(result, resultMap); // set list witch users in Bank from list from Serializable file
 
             System.out.println("For login like Administrator press 1.\n" +
@@ -49,7 +47,7 @@ public class BankController
                 String login = scanner.nextLine();
                 System.out.println("Enter password");
                 String pass = scanner.nextLine();
-                if (authorization.checkLoginAdmin(login, pass))
+                if (bank.checkLogin(login, pass))
                 {
                     menu.adminMenu();
                 }
@@ -64,7 +62,7 @@ public class BankController
                 String login = loginName+loginSurname;
                 System.out.println("Enter password");
                 String pass = scanner.nextLine();
-                if (authorization.checkLogin(login, pass))
+                if (bank.checkLogin(login, pass))
                 {
                     menu.setUserSurname(loginSurname);
                     menu.setUserName(loginName);
@@ -74,17 +72,8 @@ public class BankController
             }
         } else
         {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter Administrator's login");
-            String login = scanner.nextLine();
-            System.out.println("Enter Administrator's password");
-            String pass = scanner.nextLine();
-            if (authorization.checkLoginAdmin(login, pass))
-            {
-                menu.adminMenu();
+            bank.createAdmin();
+            menu.adminMenu();
             }
-            else System.out.println("Login or password the incorrect");
         }
     }
-
-}
