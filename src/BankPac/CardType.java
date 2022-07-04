@@ -1,6 +1,6 @@
 package BankPac;
 
-public enum CardClass {
+public enum CardType {
     BRONZE,
     SILVER,
     GOLD

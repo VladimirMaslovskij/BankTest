@@ -33,6 +33,7 @@ public class BankController
             ArrayList<User> result = (ArrayList<User>) one;
             HashMap<String, String> resultMap = (HashMap<String, String>) two;
             os.close();
+            os1.close();
             bank.openSave(result, resultMap); // set list witch users in Bank from list from Serializable file
 
             System.out.println("For login like Administrator press 1.\n" +
@@ -76,16 +77,15 @@ public class BankController
                     {
                         System.out.println("Enter the type of user card: 1.Bronze, 2.Silver, 3.Gold");
                         int choiseCardType = 0;
-                        CardClass type = null;
-                        boolean cardClassSwitch = false;
+                        CardType type = null;
                         while (type == null) {
                             choiseCardType = scanner1.nextInt();
                             if (choiseCardType == 1)
-                                type = CardClass.BRONZE;
+                                type = CardType.BRONZE;
                             else if (choiseCardType == 2)
-                                type = CardClass.SILVER;
+                                type = CardType.SILVER;
                             else if (choiseCardType == 3)
-                                type = CardClass.GOLD;
+                                type = CardType.GOLD;
                             else
                                 System.out.println("Enter 1, 2, or 3, no more");
                         }

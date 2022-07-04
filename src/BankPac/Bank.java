@@ -28,7 +28,7 @@ public class Bank
 
 
 
-    public void addUser(CardClass type)  // Adding one user
+    public void addUser(CardType type)  // Adding one user
     {
             User user = new User();
             user.setUserInfo();  // Set information about user

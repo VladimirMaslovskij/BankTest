@@ -8,7 +8,6 @@ public class Menu {
     Bank bank = Bank.getInstance();
     String userSurname;
     String userName;
-    Scanner sc = new Scanner(System.in);
 
     public void adminMenu() {
         // Information message to output little menu of programm
@@ -23,19 +22,20 @@ public class Menu {
         boolean isWorking = true; // while isWorking - true, programm is working
         try {
             while (isWorking) {
+                Scanner sc = new Scanner(System.in);
                 int adminsEnter = sc.nextInt(); // user choise
                 if (adminsEnter == 1) {
                     System.out.println("Enter the type of user card: 1.Bronze, 2.Silver, 3.Gold");
                     int choiseCardType = 0;
-                    CardClass type = null;
+                    CardType type = null;
                     while (type == null) {
                         choiseCardType = sc.nextInt();
                         if (choiseCardType == 1)
-                            type = CardClass.BRONZE;
+                            type = CardType.BRONZE;
                         else if (choiseCardType == 2)
-                            type = CardClass.SILVER;
+                            type = CardType.SILVER;
                         else if (choiseCardType == 3)
-                            type = CardClass.GOLD;
+                            type = CardType.GOLD;
                         else
                             System.out.println("Enter 1,2, or 3, no more");
                     }
@@ -103,10 +103,11 @@ public class Menu {
                 "To transfer money to some user press 2.\n" +
                 "To exit press 3.";
         System.out.println(infoString);
-        boolean bool = true; // while bool - true, programm is working
+        boolean isExit = true; // while bool - true, programm is working
         try {
-            while (bool) {
-                int usersEnter = sc.nextInt(); // user choise
+            while (isExit) {
+                Scanner sc = new Scanner(System.in);
+                int usersEnter = sc.nextInt(); // user chose
                 if (usersEnter == 1) {
                     bank.findUserFromNameSurname(userName, userSurname);
                     System.out.println("");
@@ -123,7 +124,6 @@ public class Menu {
                     System.out.println("");
                     System.out.println(infoString);
                 } else if (usersEnter == 3) {
-                    bool = false;
                     bank.saveList();
                     break;
                 }

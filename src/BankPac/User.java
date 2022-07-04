@@ -41,7 +41,7 @@ public class User implements Serializable
     {
         return info.getSurname();
     }
-    void setUserCard(CardClass type)
+    void setUserCard(CardType type)
     {
         card = new Card();
         card.setCard(id, type);

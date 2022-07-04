@@ -9,11 +9,11 @@ public class Card implements Serializable
     private long userId;
     private float money = (float) (100.0); // initial balance
 
-    private CardClass cardType;
+    private CardType cardType;
     Card(){}
 
     // Creating the card
-    void setCard(long userId, CardClass type)
+    void setCard(long userId, CardType type)
     {
         Card card = new Card();
         this.userId = userId;
