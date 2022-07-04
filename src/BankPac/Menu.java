@@ -20,23 +20,22 @@ public class Menu {
                 "To transaction between clients press 6.\n" +
                 "To save the users database and exit press 7.";
         System.out.println(infoString);
-        boolean bool = true; // while bool - true, programm is working
+        boolean isWorking = true; // while isWorking - true, programm is working
         try {
-            while (bool) {
+            while (isWorking) {
                 int adminsEnter = sc.nextInt(); // user choise
                 if (adminsEnter == 1) {
                     System.out.println("Enter the type of user card: 1.Bronze, 2.Silver, 3.Gold");
                     int choiseCardType = 0;
-                    ClassCard type = null;
-                    boolean cardClassSwitch = false;
+                    CardClass type = null;
                     while (type == null) {
                         choiseCardType = sc.nextInt();
                         if (choiseCardType == 1)
-                            type = ClassCard.BRONZE;
+                            type = CardClass.BRONZE;
                         else if (choiseCardType == 2)
-                            type = ClassCard.SILVER;
+                            type = CardClass.SILVER;
                         else if (choiseCardType == 3)
-                            type = ClassCard.GOLD;
+                            type = CardClass.GOLD;
                         else
                             System.out.println("Enter 1,2, or 3, no more");
                     }
@@ -79,7 +78,7 @@ public class Menu {
                     System.out.println(infoString);
                 } else if (adminsEnter == 7) {
                     bank.saveList();    // Save object in file
-                    bool = false;
+                    isWorking = false;
                     break;
                 }
             }

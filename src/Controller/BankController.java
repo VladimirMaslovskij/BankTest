@@ -24,8 +24,8 @@ public class BankController
         // Open Serializable object from file
         if (choiseDB == 1)
         {
-            FileInputStream fileInputStream = new FileInputStream("E:\\Java\\SavedFiles\\BankUsers.ser");
-            FileInputStream fileInputStreamMap = new FileInputStream("E:\\Java\\SavedFiles\\BankLogin.ser");
+            FileInputStream fileInputStream = new FileInputStream("BankUsers.ser");
+            FileInputStream fileInputStreamMap = new FileInputStream("BankLogin.ser");
             ObjectInputStream os = new ObjectInputStream(fileInputStream);
             ObjectInputStream os1 = new ObjectInputStream(fileInputStreamMap);
             Object one = os.readObject();
@@ -76,16 +76,16 @@ public class BankController
                     {
                         System.out.println("Enter the type of user card: 1.Bronze, 2.Silver, 3.Gold");
                         int choiseCardType = 0;
-                        ClassCard type = null;
+                        CardClass type = null;
                         boolean cardClassSwitch = false;
                         while (type == null) {
                             choiseCardType = scanner1.nextInt();
                             if (choiseCardType == 1)
-                                type = ClassCard.BRONZE;
+                                type = CardClass.BRONZE;
                             else if (choiseCardType == 2)
-                                type = ClassCard.SILVER;
+                                type = CardClass.SILVER;
                             else if (choiseCardType == 3)
-                                type = ClassCard.GOLD;
+                                type = CardClass.GOLD;
                             else
                                 System.out.println("Enter 1, 2, or 3, no more");
                         }

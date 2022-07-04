@@ -26,9 +26,9 @@ public class Bank
     ArrayList<User> users = new ArrayList<>(); // DATA BASE(NO)
 
 
-    Scanner sc = new Scanner(System.in);
 
-    public void addUser(ClassCard type)  // Adding one user
+
+    public void addUser(CardClass type)  // Adding one user
     {
             User user = new User();
             user.setUserInfo();  // Set information about user
@@ -77,16 +77,18 @@ public class Bank
         return users1;
     }
 
-    public void findUserFromNameSurname(String name, String surname)
+    public User findUserFromNameSurname(String name, String surname)
     {
+        User result = null;
         for (User user : users)
         {
             if (name.equals(user.getName()) && surname.equals(user.getUserSurname()))
             {
                 user.getUserInfo();
-
+                result = user;
             }
         }
+        return result;
     }
 
     public void transactionToCard(long userCardNumber, float summ) {      // adding money to user by id
@@ -116,6 +118,7 @@ public class Bank
 
     public void createAdmin()
     {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter the admin's name");
         String adminName = sc.nextLine();
         System.out.println("Enter the admin's password");
@@ -139,7 +142,14 @@ public class Bank
     }
 
     public void saveList() throws IOException {
-        SaveBankUsers.saveUsersList(users, logMap);
+        FileOutputStream fileOutputStream = new FileOutputStream("BankUsers.ser");
+        FileOutputStream fileOutputStreamMap = new FileOutputStream("BankLogin.ser");
+        ObjectOutputStream os = new ObjectOutputStream(fileOutputStream);
+        ObjectOutputStream os1 = new ObjectOutputStream(fileOutputStreamMap);
+        os.writeObject(users);
+        os1.writeObject(logMap);
+        os.close();
+        os1.close();
     }
 
     public void openSave(ArrayList<User> arrayList, HashMap<String, String> hashMap) {
