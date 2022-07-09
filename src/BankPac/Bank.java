@@ -8,16 +8,16 @@ import java.util.Scanner;
 
 public class Bank
 {
-    private static Bank instance;
+    private static Bank INSTANCE;
 
     private  Bank() {}
 
     public static Bank getInstance()
     {
-        if (instance == null) {
-            instance = new Bank();
+        if (INSTANCE == null) {
+            INSTANCE = new Bank();
         }
-            return instance;
+            return INSTANCE;
     }
 
     HashMap<String, String> logMap = new HashMap<>();
@@ -28,12 +28,28 @@ public class Bank
 
 
 
-    public void addUser(CardType type)  // Adding one user
+    public void addUser()  // Adding one user
     {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the type of user card: 1.Bronze, 2.Silver, 3.Gold");
+        int choiseCardType = 0;
+        CardType type = null;
+        while (type == null)
+        {
+            choiseCardType = sc.nextInt();
+            if (choiseCardType == 1)
+                type = CardType.BRONZE;
+            else if (choiseCardType == 2)
+                type = CardType.SILVER;
+            else if (choiseCardType == 3)
+                type = CardType.GOLD;
+            else
+                System.out.println("Enter 1,2, or 3, no more");
+        }
             User user = new User();
             user.setUserInfo();  // Set information about user
             users.add(user);
-            logMap.put(user.getName() + user.getUserSurname(), user.getPassword());
+            logMap.put(user.getEmail(), user.getPassword());
             user.setUserCard(type);  // adding card to user
             System.out.println("Client was registered");
     }
@@ -77,12 +93,12 @@ public class Bank
         return users1;
     }
 
-    public User findUserFromNameSurname(String name, String surname)
+    public User findUserFromLogin(String login)
     {
         User result = null;
         for (User user : users)
         {
-            if (name.equals(user.getName()) && surname.equals(user.getUserSurname()))
+            if (login.equals(user.getEmail()))
             {
                 user.getUserInfo();
                 result = user;
@@ -116,14 +132,15 @@ public class Bank
         }
     }
 
-    public void createAdmin()
+    public boolean checkAdminLogin(String login, String pass)
     {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the admin's name");
-        String adminName = sc.nextLine();
-        System.out.println("Enter the admin's password");
-        String adminPassword = sc.nextLine();
-        logMap.put(adminName, adminPassword);
+        boolean result = false;
+        if (login.equals("admin"))
+            {
+                if (pass.equals("password"))
+                    result = true;
+            }
+        return result;
     }
 
 
@@ -140,6 +157,8 @@ public class Bank
         }
         return result;
     }
+
+
 
     public void saveList() throws IOException {
         FileOutputStream fileOutputStream = new FileOutputStream("BankUsers.ser");

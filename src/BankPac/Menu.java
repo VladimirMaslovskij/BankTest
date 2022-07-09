@@ -6,18 +6,18 @@ import java.util.Scanner;
 
 public class Menu {
     Bank bank = Bank.getInstance();
-    String userSurname;
-    String userName;
+    String userEmail;
 
     public void adminMenu() {
         // Information message to output little menu of programm
-        String infoString = "To add client press 1.\n" +
-                "To print all clients press 2.\n" +
-                "To find client by id press 3.\n" +
-                "To find client by surname press 4.\n" +
-                "To add money to client press 5.\n" +
-                "To transaction between clients press 6.\n" +
-                "To save the users database and exit press 7.";
+        String infoString = "1. - To add client.\n" +
+                "2. - To print all clients.\n" +
+                "3. - To find client by id.\n" +
+                "4. - To find client by surname.\n" +
+                "5. - To add money to client.\n" +
+                "6. - To transfer money between clients.\n" +
+                "7. - To save the changes.\n" +
+                "10. - To exit.";
         System.out.println(infoString);
         boolean isWorking = true; // while isWorking - true, programm is working
         try {
@@ -25,21 +25,7 @@ public class Menu {
                 Scanner sc = new Scanner(System.in);
                 int adminsEnter = sc.nextInt(); // user choise
                 if (adminsEnter == 1) {
-                    System.out.println("Enter the type of user card: 1.Bronze, 2.Silver, 3.Gold");
-                    int choiseCardType = 0;
-                    CardType type = null;
-                    while (type == null) {
-                        choiseCardType = sc.nextInt();
-                        if (choiseCardType == 1)
-                            type = CardType.BRONZE;
-                        else if (choiseCardType == 2)
-                            type = CardType.SILVER;
-                        else if (choiseCardType == 3)
-                            type = CardType.GOLD;
-                        else
-                            System.out.println("Enter 1,2, or 3, no more");
-                    }
-                    bank.addUser(type);
+                    bank.addUser();
                     System.out.println("");
                     System.out.println(infoString);
                 } else if (adminsEnter == 2) {
@@ -61,7 +47,7 @@ public class Menu {
                 } else if (adminsEnter == 5) {
                     System.out.print("Enter user's card number: ");
                     long userCardNumber = sc.nextLong();
-                    System.out.print("Enter summ for transaktion: ");
+                    System.out.print("Enter sum of transfer: ");
                     float summ = sc.nextFloat();
                     bank.transactionToCard(userCardNumber, summ);
                     System.out.println("");
@@ -71,31 +57,29 @@ public class Menu {
                     long firstUserCardNumber = sc.nextLong();
                     System.out.print("Enter second user's card number: ");
                     long secondUserCardNumber = sc.nextLong();
-                    System.out.print("Enter summ for transaktion: ");
-                    float summ = sc.nextInt();
-                    bank.transactionUserToUser(firstUserCardNumber, secondUserCardNumber, summ);
+                    System.out.print("Enter sum of transfer: ");
+                    float sum = sc.nextInt();
+                    bank.transactionUserToUser(firstUserCardNumber, secondUserCardNumber, sum);
                     System.out.println("");
                     System.out.println(infoString);
                 } else if (adminsEnter == 7) {
-                    bank.saveList();    // Save object in file
-                    isWorking = false;
+                    bank.saveList();
+                    System.out.println("");
+                    System.out.println(infoString);
+                } else if (adminsEnter == 10) {
                     break;
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace(System.out);
         }
     }
 
 
-    public void setUserSurname(String surname)
-    {
-        this.userSurname = surname;
-    }
 
-    public void setUserName(String name)
+    public void setEmail(String email)
     {
-        this.userName = name;
+        this.userEmail = email;
     }
 
     public void userMenu() {
@@ -103,13 +87,13 @@ public class Menu {
                 "To transfer money to some user press 2.\n" +
                 "To exit press 3.";
         System.out.println(infoString);
-        boolean isExit = true; // while bool - true, programm is working
+        boolean isExit = true; // while bool - true, program is working
         try {
             while (isExit) {
                 Scanner sc = new Scanner(System.in);
                 int usersEnter = sc.nextInt(); // user chose
                 if (usersEnter == 1) {
-                    bank.findUserFromNameSurname(userName, userSurname);
+                    bank.findUserFromLogin(userEmail);
                     System.out.println("");
                     System.out.println(infoString);
                 }
@@ -118,7 +102,7 @@ public class Menu {
                     long firstUserCardNumber = sc.nextLong();
                     System.out.print("Enter second user's card number: ");
                     long secondUserCardNumber = sc.nextLong();
-                    System.out.print("Enter summ for transaktion: ");
+                    System.out.print("Enter sum of transfer: ");
                     float summ = sc.nextInt();
                     bank.transactionUserToUser(firstUserCardNumber, secondUserCardNumber, summ);
                     System.out.println("");
@@ -132,7 +116,7 @@ public class Menu {
         catch (InputMismatchException ex) {
             System.out.println("You entered not the digit");
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace(System.out);
         }
     }
 }

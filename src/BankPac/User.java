@@ -54,6 +54,11 @@ public class User implements Serializable
         return info.getPassword();
     }
 
+    public String getEmail()
+    {
+        return info.getEmail();
+    }
+
     public long getUserCardNumber()
     {
         return card.getCardNumber();
