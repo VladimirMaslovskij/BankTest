@@ -1,5 +1,7 @@
 package BankPac;
 
+import Exceptions.BankException;
+
 import java.io.Serializable;
 
 public class User implements Serializable
@@ -31,8 +33,7 @@ public class User implements Serializable
         return id;
     }
     // set info about user
-    void setUserInfo()
-    {
+    void setUserInfo() throws BankException {
         info = new Info();
         info.setInfo();
     }

@@ -1,5 +1,7 @@
 package BankPac;
 
+import Exceptions.BankException;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,11 +49,17 @@ public class Bank
                 System.out.println("Enter 1,2, or 3, no more");
         }
             User user = new User();
+        try {
             user.setUserInfo();  // Set information about user
             users.add(user);
             logMap.put(user.getEmail(), user.getPassword());
             user.setUserCard(type);  // adding card to user
             System.out.println("Client was registered");
+        } catch (BankException e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Client was not registered");
+        }
     }
 
     public void printUsers() {  // output all users info
