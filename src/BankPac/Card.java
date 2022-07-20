@@ -36,7 +36,7 @@ public class Card implements Serializable
     }
     // Debits money from the user's card. Does not allow to write off more than he has
     boolean deliteMoney(float summ) { // return true or false to know result of operation
-        if (this.money - summ < 0) {
+        if ((this.money <= 0) || (this.money - summ < 0)) {
             System.out.println("Insufficient funds.");
             return false;
         } else {
